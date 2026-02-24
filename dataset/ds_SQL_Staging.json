@@ -1,0 +1,136 @@
+{
+	"name": "ds_SQL_Staging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AzureSQL_Link_CG",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "symbol",
+				"type": "nvarchar"
+			},
+			{
+				"name": "name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "image",
+				"type": "nvarchar"
+			},
+			{
+				"name": "current_price",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "market_cap",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "market_cap_rank",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "fully_diluted_valuation",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "total_volume",
+				"type": "float",
+				"precision": 19
+			},
+			{
+				"name": "high_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "low_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "price_change_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "price_change_percentage_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "market_cap_change_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "market_cap_change_percentage_24h",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "circulating_supply",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "total_supply",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "max_supply",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "ath",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "ath_change_percentage",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "ath_date",
+				"type": "nvarchar"
+			},
+			{
+				"name": "atl",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "atl_change_percentage",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "atl_date",
+				"type": "nvarchar"
+			},
+			{
+				"name": "last_updated",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Staging_RawData"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

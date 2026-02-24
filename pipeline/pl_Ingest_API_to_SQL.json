@@ -1,0 +1,318 @@
+{
+	"name": "pl_Ingest_API_to_SQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.Staging_RawData', 'U') IS NOT NULL DROP TABLE dbo.Staging_RawData;",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['symbol']"
+								},
+								"sink": {
+									"name": "symbol",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['image']"
+								},
+								"sink": {
+									"name": "image",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['current_price']"
+								},
+								"sink": {
+									"name": "current_price",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['market_cap']"
+								},
+								"sink": {
+									"name": "market_cap",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"path": "$['market_cap_rank']"
+								},
+								"sink": {
+									"name": "market_cap_rank",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"path": "$['fully_diluted_valuation']"
+								},
+								"sink": {
+									"name": "fully_diluted_valuation",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_volume']"
+								},
+								"sink": {
+									"name": "total_volume",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['high_24h']"
+								},
+								"sink": {
+									"name": "high_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['low_24h']"
+								},
+								"sink": {
+									"name": "low_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price_change_24h']"
+								},
+								"sink": {
+									"name": "price_change_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price_change_percentage_24h']"
+								},
+								"sink": {
+									"name": "price_change_percentage_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['market_cap_change_24h']"
+								},
+								"sink": {
+									"name": "market_cap_change_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['market_cap_change_percentage_24h']"
+								},
+								"sink": {
+									"name": "market_cap_change_percentage_24h",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['circulating_supply']"
+								},
+								"sink": {
+									"name": "circulating_supply",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_supply']"
+								},
+								"sink": {
+									"name": "total_supply",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['max_supply']"
+								},
+								"sink": {
+									"name": "max_supply",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ath']"
+								},
+								"sink": {
+									"name": "ath",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ath_change_percentage']"
+								},
+								"sink": {
+									"name": "ath_change_percentage",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ath_date']"
+								},
+								"sink": {
+									"name": "ath_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['atl']"
+								},
+								"sink": {
+									"name": "atl",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['atl_change_percentage']"
+								},
+								"sink": {
+									"name": "atl_change_percentage",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['atl_date']"
+								},
+								"sink": {
+									"name": "atl_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['last_updated']"
+								},
+								"sink": {
+									"name": "last_updated",
+									"type": "String"
+								}
+							}
+						],
+						"collectionReference": "",
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "RestResource_CG",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_SQL_Staging",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_transform_cryptodata",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-02-24T21:35:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

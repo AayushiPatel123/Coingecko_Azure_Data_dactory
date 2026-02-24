@@ -1,0 +1,90 @@
+{
+	"name": "df_transform_cryptodata",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_SQL_Staging",
+						"type": "DatasetReference"
+					},
+					"name": "StagingTable",
+					"description": "transforming data from single column to star schema"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_SQL_Final_Dim_Coins",
+						"type": "DatasetReference"
+					},
+					"name": "Finaldataset"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ColumnSelection"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          symbol as string,",
+				"          name as string,",
+				"          image as string,",
+				"          current_price as double,",
+				"          market_cap as long,",
+				"          market_cap_rank as long,",
+				"          fully_diluted_valuation as long,",
+				"          total_volume as double,",
+				"          high_24h as double,",
+				"          low_24h as double,",
+				"          price_change_24h as double,",
+				"          price_change_percentage_24h as double,",
+				"          market_cap_change_24h as double,",
+				"          market_cap_change_percentage_24h as double,",
+				"          circulating_supply as double,",
+				"          total_supply as double,",
+				"          max_supply as double,",
+				"          ath as double,",
+				"          ath_change_percentage as double,",
+				"          ath_date as string,",
+				"          atl as double,",
+				"          atl_change_percentage as double,",
+				"          atl_date as string,",
+				"          last_updated as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> StagingTable",
+				"StagingTable select(mapColumn(",
+				"          Coin_ID = id,",
+				"          Symbol = symbol,",
+				"          Name = name,",
+				"          {Current Price} = current_price,",
+				"          market_cap,",
+				"          last_updated",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ColumnSelection",
+				"ColumnSelection derive(Price_USD = toDecimal({Current Price}, 18, 2)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> Finaldataset"
+			]
+		}
+	}
+}

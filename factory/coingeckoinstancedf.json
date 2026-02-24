@@ -1,0 +1,9 @@
+{
+	"name": "coingeckoinstancedf",
+	"location": "westus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5d6460ec-1e00-44f4-b68b-fbb4c729a553",
+		"tenantId": "eedf7790-b823-49a5-99b2-a81b03475f36"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"name": "ls_RestAPI_Source_CG",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "linking the database with the opensource API coin gecko",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
